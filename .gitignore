@@ -1,0 +1,6 @@
+.idea/
+screenshots/
+skills/
+venv/
+__pycache__/
+*.pyc
