@@ -167,14 +167,16 @@ Contact Us implementation details:
 
 - Form fields: First name, Last name, Email, Phone, Message.
 - First name and Email are required.
-- The form currently uses FormSubmit so submissions from GitHub Pages are emailed to Gmail:
-  - `action="https://formsubmit.co/aaron.zhang.aus@gmail.com"`
+- The form currently uses Formspree so submissions from GitHub Pages are emailed to Gmail after a Formspree form is created:
+  - `action="https://formspree.io/f/mqevkzey"`
   - `method="POST"`
   - Hidden `_subject`: `New Furious RC Contact Form Submission`
-  - Hidden `_template`: `table`
-  - Hidden `_next`: `https://AaronZhangAus.github.io/FuriousRC_Website/thank-you.html`
-- After the Namecheap custom domain is live, update `_next` to the final custom-domain thank-you URL.
-- `thank-you.html` is the FormSubmit success redirect page.
+  - Hidden honeypot input: `name="_gotcha"`
+- The active Formspree endpoint ID is `mqevkzey`.
+- In Formspree, configure the recipient as `aaron.zhang.aus@gmail.com`.
+- In Formspree, optionally configure the success redirect to `thank-you.html`.
+- After the Namecheap custom domain is live, update the Formspree dashboard redirect to the final custom-domain thank-you URL.
+- `thank-you.html` is the optional Formspree success redirect page.
 - On mobile, form rows stack into one column.
 
 ## Shared Typography And Footer

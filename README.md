@@ -175,11 +175,11 @@ Main sections:
 Current form behavior:
 
 ```html
-action="https://formsubmit.co/aaron.zhang.aus@gmail.com"
+action="https://formspree.io/f/mqevkzey"
 method="POST"
 ```
 
-The form posts to FormSubmit, which emails submissions to `aaron.zhang.aus@gmail.com`.
+The form posts to the active Formspree endpoint `https://formspree.io/f/mqevkzey`.
 
 After a successful submission, the form redirects to:
 
@@ -187,7 +187,7 @@ After a successful submission, the form redirects to:
 thank-you.html
 ```
 
-Important: the first live submission may trigger a FormSubmit confirmation email. Confirm that email in Gmail so future submissions are delivered.
+Important: create the form in Formspree first, set the recipient email to `aaron.zhang.aus@gmail.com`, then copy the endpoint into `contact-us.html`.
 
 ## Styling
 
@@ -491,52 +491,57 @@ After adding a video slide, check:
 - The slider still works on mobile.
 ## Contact Form And Email Submission
 
-The current Contact Us form uses FormSubmit so submissions can be emailed from a static GitHub Pages site.
+The current Contact Us form uses Formspree so submissions can be emailed from a static GitHub Pages site.
 
 Current form endpoint:
 
 ```html
-<form class="contact-form" action="https://formsubmit.co/aaron.zhang.aus@gmail.com" method="POST">
+<form class="contact-form" action="https://formspree.io/f/mqevkzey" method="POST">
 ```
 
 Current hidden fields:
 
 ```html
 <input type="hidden" name="_subject" value="New Furious RC Contact Form Submission">
-<input type="hidden" name="_template" value="table">
-<input type="hidden" name="_next" value="https://AaronZhangAus.github.io/FuriousRC_Website/thank-you.html">
+<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" hidden>
 ```
 
 Field naming notes:
 
-- The visitor email field is named `email` so FormSubmit can use it for reply handling.
+- The visitor email field is named `email` so Formspree can include it in the submission and reply workflow.
 - First name, last name, phone, and message are included in the email body.
 - First name and email are required.
 
 Live setup process:
 
-1. Publish the site to GitHub Pages.
-2. Open the live Contact Us page.
-3. Submit a test message using your own email address.
-4. Check `aaron.zhang.aus@gmail.com` for the FormSubmit activation email.
-5. Confirm/activate the form from that email.
-6. Submit another test message.
-7. Confirm the second message arrives in Gmail and redirects to `thank-you.html`.
+1. Create or log in to a Formspree account.
+2. Create a new form for the Furious RC website.
+3. Set the recipient email to `aaron.zhang.aus@gmail.com`.
+4. Confirm the endpoint is `https://formspree.io/f/mqevkzey`.
+5. In Formspree, configure the form's redirect or thank-you behavior to send users to `thank-you.html` if desired.
+6. Publish the site to GitHub Pages.
+7. Open the live Contact Us page.
+8. Submit a test message.
+9. Confirm the test message arrives in Gmail.
 
-After connecting the Namecheap custom domain, update the `_next` hidden field in `contact-us.html` from the GitHub Pages URL to the final domain:
+Example final form action:
 
 ```html
-<input type="hidden" name="_next" value="https://www.your-domain.com/thank-you.html">
+<form class="contact-form" action="https://formspree.io/f/abcdwxyz" method="POST">
 ```
 
-Keep the GitHub Pages URL in `_next` until the custom domain is live and verified.
+After connecting the Namecheap custom domain, update any Formspree dashboard redirect from the GitHub Pages URL to the final custom-domain URL:
+
+```text
+https://www.your-domain.com/thank-you.html
+```
 
 Limitations:
 
-- Form submissions depend on FormSubmit as a third-party service.
-- The destination Gmail address is visible in the page source.
-- FormSubmit may show a captcha or confirmation step to reduce spam.
-- If more control is needed later, replace FormSubmit with a backend/serverless endpoint such as Cloudflare Workers, Netlify Functions, Vercel Functions, or another email API integration.
+- Form submissions depend on Formspree as a third-party service.
+- The destination Gmail address is managed in Formspree rather than exposed directly in the form action.
+- Formspree may show a captcha or confirmation step to reduce spam.
+- If more control is needed later, replace Formspree with a backend/serverless endpoint such as Cloudflare Workers, Netlify Functions, Vercel Functions, or another email API integration.
 
 ## Deployment Notes
 
@@ -575,7 +580,7 @@ README.md
 
 Important: GitHub Pages serves files from the selected branch/folder. Anything committed inside the publishing source can be publicly accessible by URL, even if no page links to it.
 
-Static-only GitHub Pages hosting is enough for this website's pages, images, homepage video, Our Cars sliders, YouTube lightbox, and FormSubmit-powered contact form. No custom backend is required for the current contact form.
+Static-only GitHub Pages hosting is enough for this website's pages, images, homepage video, Our Cars sliders, YouTube lightbox, and Formspree-powered contact form. No custom backend is required for the current contact form.
 
 Official references:
 
@@ -646,7 +651,7 @@ https://AaronZhangAus.github.io/FuriousRC_Website/thank-you.html
 
 11. Test the homepage video, homepage images, package images, Our Cars sliders, Our Cars lightbox, YouTube popups, Contact Us form behavior, and thank-you page.
 
-12. Submit the Contact Us form once after the first live deploy and confirm the FormSubmit activation email in Gmail.
+12. Submit the Contact Us form once after the first live deploy and confirm the message arrives in Gmail.
 
 ## Connecting A Namecheap Domain
 
@@ -812,9 +817,9 @@ Test:
 - Our Cars slider arrows work.
 - Our Cars image lightbox opens and closes.
 - Our Cars YouTube popups open and stop playback after closing.
-- Contact Us form submits through FormSubmit.
-- Gmail receives the FormSubmit contact email.
-- FormSubmit redirects to `thank-you.html` after a successful submission.
+- Contact Us form submits through Formspree.
+- Gmail receives the Formspree contact email.
+- Formspree thank-you or redirect behavior works as configured in the Formspree dashboard.
 - Mobile layout is readable and has no obvious horizontal overflow.
 
 ## Future Update Process
@@ -860,10 +865,10 @@ Ctrl + F5
 - Keep all video paths relative, such as `videos/Welcome_video_01_under8mb.mp4`.
 - Keep live images compressed where practical. The current referenced images were compressed to about `100KB` or less each.
 - Keep using the compressed homepage video unless a higher-quality video is intentionally needed.
-- Keep the Contact Us form action pointed at `https://formsubmit.co/aaron.zhang.aus@gmail.com` unless switching to a custom backend.
-- After the Namecheap domain is live, update the FormSubmit `_next` redirect from the GitHub Pages URL to the final domain.
+- Keep the Contact Us form action pointed at `https://formspree.io/f/mqevkzey` format, using the real Formspree form ID.
+- After the Namecheap domain is live, update any Formspree dashboard redirect from the GitHub Pages URL to the final domain.
 - Do not commit credentials, API keys, Namecheap login details, or GitHub tokens.
-- If replacing FormSubmit with custom backend email sending later, GitHub Pages alone will not be enough; use serverless/API hosting for the backend endpoint.
+- If replacing Formspree with custom backend email sending later, GitHub Pages alone will not be enough; use serverless/API hosting for the backend endpoint.
 
 ## Pre-Publish Checklist
 
@@ -878,4 +883,5 @@ Before publishing changes:
 - Check Our Cars image lightbox.
 - Check Contact Us form behavior.
 - Check that `thank-you.html` loads.
-- Confirm FormSubmit delivery to Gmail after the first live deploy or domain change.
+- Confirm Formspree delivery to Gmail after the first live deploy or domain change.
+- Confirm `contact-us.html` uses the active Formspree endpoint `https://formspree.io/f/mqevkzey`.
