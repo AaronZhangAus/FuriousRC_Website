@@ -26,26 +26,29 @@
 
     <section class="contact-card" aria-labelledby="contact-title">
       <h1 id="contact-title">CONTACT US</h1>
-      <form class="contact-form" action="mailto:aaron.zhang.aus@gmail.com" method="post" enctype="text/plain">
+      <form class="contact-form" action="https://formsubmit.co/aaron.zhang.aus@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New Furious RC Contact Form Submission">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://AaronZhangAus.github.io/FuriousRC_Website/thank-you.html">
         <div class="form-row">
           <label>
             <span>First name *</span>
-            <input type="text" name="First name" required>
+            <input type="text" name="First name" autocomplete="given-name" required>
           </label>
           <label>
             <span>Last name</span>
-            <input type="text" name="Last name">
+            <input type="text" name="Last name" autocomplete="family-name">
           </label>
         </div>
 
         <div class="form-row">
           <label>
             <span>Email *</span>
-            <input type="email" name="Email" required>
+            <input type="email" name="email" autocomplete="email" required>
           </label>
           <label>
             <span>Phone</span>
-            <input type="tel" name="Phone">
+            <input type="tel" name="Phone" autocomplete="tel">
           </label>
         </div>
 

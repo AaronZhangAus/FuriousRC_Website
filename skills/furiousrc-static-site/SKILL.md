@@ -167,11 +167,14 @@ Contact Us implementation details:
 
 - Form fields: First name, Last name, Email, Phone, Message.
 - First name and Email are required.
-- The form currently uses the visitor's default email application:
-  - `action="mailto:aaron.zhang.aus@gmail.com"`
-  - `method="post"`
-  - `enctype="text/plain"`
-- Do not replace this with FormSubmit or another static form service unless the user asks again.
+- The form currently uses FormSubmit so submissions from GitHub Pages are emailed to Gmail:
+  - `action="https://formsubmit.co/aaron.zhang.aus@gmail.com"`
+  - `method="POST"`
+  - Hidden `_subject`: `New Furious RC Contact Form Submission`
+  - Hidden `_template`: `table`
+  - Hidden `_next`: `https://AaronZhangAus.github.io/FuriousRC_Website/thank-you.html`
+- After the Namecheap custom domain is live, update `_next` to the final custom-domain thank-you URL.
+- `thank-you.html` is the FormSubmit success redirect page.
 - On mobile, form rows stack into one column.
 
 ## Shared Typography And Footer

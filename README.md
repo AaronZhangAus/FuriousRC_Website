@@ -12,6 +12,7 @@ The site has four pages:
 - `packages.html` - Packages
 - `our-cars.html` - Our Cars
 - `contact-us.html` - Contact Us
+- `thank-you.html` - Contact form success page
 
 All pages share:
 
@@ -28,6 +29,7 @@ FuriousRC_Website/
 |-- packages.html
 |-- our-cars.html
 |-- contact-us.html
+|-- thank-you.html
 |-- styles.css
 |-- README.md
 |-- videos/
@@ -148,7 +150,7 @@ Main sections:
 - Header
 - Our Cars welcome image
 - MJX 10303/10304 1/10 Rally Car section
-- MJX 14209 Dessert Truck section
+- MJX 14209 Desert Truck section
 - Arrma Fury 223S Short Course Truck section
 - Shared footer
 
@@ -173,12 +175,19 @@ Main sections:
 Current form behavior:
 
 ```html
-action="mailto:aaron.zhang.aus@gmail.com"
-method="post"
-enctype="text/plain"
+action="https://formsubmit.co/aaron.zhang.aus@gmail.com"
+method="POST"
 ```
 
-This opens the user's default email application. It does not send email silently from the website.
+The form posts to FormSubmit, which emails submissions to `aaron.zhang.aus@gmail.com`.
+
+After a successful submission, the form redirects to:
+
+```text
+thank-you.html
+```
+
+Important: the first live submission may trigger a FormSubmit confirmation email. Confirm that email in Gmail so future submissions are delivered.
 
 ## Styling
 
@@ -220,6 +229,7 @@ http://localhost:8000/index.html
 http://localhost:8000/packages.html
 http://localhost:8000/our-cars.html
 http://localhost:8000/contact-us.html
+http://localhost:8000/thank-you.html
 ```
 
 ## Updating Images
@@ -481,125 +491,52 @@ After adding a video slide, check:
 - The slider still works on mobile.
 ## Contact Form And Email Submission
 
-The current Contact Us form uses `mailto:`.
+The current Contact Us form uses FormSubmit so submissions can be emailed from a static GitHub Pages site.
 
-Current behavior:
-
-- The user fills in the form.
-- The user clicks Submit.
-- The browser tries to open the user's default email application.
-- The user must send the email manually from their email application.
-
-Limitation:
-
-- If the user does not have a default email application configured, clicking Submit may appear to do nothing.
-- Static HTML cannot silently send emails by itself.
-
-## Sending Emails With Backend Support
-
-To send form submissions directly to `aaron.zhang.aus@gmail.com`, the website needs backend support.
-
-Recommended flow:
-
-1. User fills in the Contact Us form.
-2. Browser sends the form data to a backend endpoint, for example `/api/contact`.
-3. Backend validates the data.
-4. Backend sends an email using SMTP or an email API.
-5. Backend returns success or error.
-6. Website shows a thank-you or error message.
-
-### Example Backend Endpoint
-
-The frontend form could be changed from:
+Current form endpoint:
 
 ```html
-<form class="contact-form" action="mailto:aaron.zhang.aus@gmail.com" method="post" enctype="text/plain">
+<form class="contact-form" action="https://formsubmit.co/aaron.zhang.aus@gmail.com" method="POST">
 ```
 
-To:
+Current hidden fields:
 
 ```html
-<form class="contact-form" action="/api/contact" method="POST">
+<input type="hidden" name="_subject" value="New Furious RC Contact Form Submission">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://AaronZhangAus.github.io/FuriousRC_Website/thank-you.html">
 ```
 
-Recommended field names:
+Field naming notes:
+
+- The visitor email field is named `email` so FormSubmit can use it for reply handling.
+- First name, last name, phone, and message are included in the email body.
+- First name and email are required.
+
+Live setup process:
+
+1. Publish the site to GitHub Pages.
+2. Open the live Contact Us page.
+3. Submit a test message using your own email address.
+4. Check `aaron.zhang.aus@gmail.com` for the FormSubmit activation email.
+5. Confirm/activate the form from that email.
+6. Submit another test message.
+7. Confirm the second message arrives in Gmail and redirects to `thank-you.html`.
+
+After connecting the Namecheap custom domain, update the `_next` hidden field in `contact-us.html` from the GitHub Pages URL to the final domain:
 
 ```html
-<input type="text" name="first_name" required>
-<input type="text" name="last_name">
-<input type="email" name="email" required>
-<input type="tel" name="phone">
-<textarea name="message"></textarea>
+<input type="hidden" name="_next" value="https://www.your-domain.com/thank-you.html">
 ```
 
-### Backend Requirements
+Keep the GitHub Pages URL in `_next` until the custom domain is live and verified.
 
-The backend should:
+Limitations:
 
-- Accept `POST` requests from the contact form.
-- Validate required fields.
-- Validate the email format.
-- Sanitize user input.
-- Add spam protection.
-- Send the email to `aaron.zhang.aus@gmail.com`.
-- Return a clear success or failure response.
-
-### Email Sending Options
-
-Common backend email options:
-
-- SMTP server
-- SendGrid
-- Mailgun
-- Amazon SES
-- Postmark
-- Resend
-- Nodemailer with Node.js
-- Python `smtplib`
-
-### Example Email Content
-
-The backend should send an email with content similar to:
-
-```text
-Subject: New Furious RC Contact Form Submission
-
-First name: Jane
-Last name: Smith
-Email: jane@example.com
-Phone: 0400 000 000
-
-Message:
-I would like to book a birthday party package.
-```
-
-### Spam Protection
-
-At minimum, add:
-
-- Honeypot hidden field
-- Basic rate limiting
-- Server-side validation
-
-For stronger protection, add:
-
-- reCAPTCHA
-- Cloudflare Turnstile
-- hCaptcha
-
-### Success Page Or Message
-
-After a backend receives the form, use one of these approaches:
-
-- Redirect the user to a thank-you page.
-- Show an inline success message.
-- Return JSON and handle it with JavaScript.
-
-Simple redirect example:
-
-```text
-/thank-you.html
-```
+- Form submissions depend on FormSubmit as a third-party service.
+- The destination Gmail address is visible in the page source.
+- FormSubmit may show a captcha or confirmation step to reduce spam.
+- If more control is needed later, replace FormSubmit with a backend/serverless endpoint such as Cloudflare Workers, Netlify Functions, Vercel Functions, or another email API integration.
 
 ## Deployment Notes
 
@@ -618,6 +555,7 @@ index.html
 packages.html
 our-cars.html
 contact-us.html
+thank-you.html
 styles.css
 images/
 videos/
@@ -637,7 +575,7 @@ README.md
 
 Important: GitHub Pages serves files from the selected branch/folder. Anything committed inside the publishing source can be publicly accessible by URL, even if no page links to it.
 
-Static-only GitHub Pages hosting is enough for this website's pages, images, homepage video, Our Cars sliders, and YouTube lightbox. It is not enough for silent backend email sending. The current Contact Us form uses `mailto:`, so no backend is required.
+Static-only GitHub Pages hosting is enough for this website's pages, images, homepage video, Our Cars sliders, YouTube lightbox, and FormSubmit-powered contact form. No custom backend is required for the current contact form.
 
 Official references:
 
@@ -661,7 +599,7 @@ Use this process after making future website changes.
 
 ```powershell
 git status
-git add index.html packages.html our-cars.html contact-us.html styles.css images videos
+git add index.html packages.html our-cars.html contact-us.html thank-you.html styles.css images videos
 git commit -m "Update website"
 git push origin master
 ```
@@ -703,9 +641,12 @@ https://AaronZhangAus.github.io/FuriousRC_Website/
 https://AaronZhangAus.github.io/FuriousRC_Website/packages.html
 https://AaronZhangAus.github.io/FuriousRC_Website/our-cars.html
 https://AaronZhangAus.github.io/FuriousRC_Website/contact-us.html
+https://AaronZhangAus.github.io/FuriousRC_Website/thank-you.html
 ```
 
-11. Test the homepage video, homepage images, package images, Our Cars sliders, Our Cars lightbox, YouTube popups, and Contact Us form behavior.
+11. Test the homepage video, homepage images, package images, Our Cars sliders, Our Cars lightbox, YouTube popups, Contact Us form behavior, and thank-you page.
+
+12. Submit the Contact Us form once after the first live deploy and confirm the FormSubmit activation email in Gmail.
 
 ## Connecting A Namecheap Domain
 
@@ -851,6 +792,7 @@ https://www.your-domain.com/
 https://www.your-domain.com/packages.html
 https://www.your-domain.com/our-cars.html
 https://www.your-domain.com/contact-us.html
+https://www.your-domain.com/thank-you.html
 ```
 
 Also test the apex domain:
@@ -870,7 +812,9 @@ Test:
 - Our Cars slider arrows work.
 - Our Cars image lightbox opens and closes.
 - Our Cars YouTube popups open and stop playback after closing.
-- Contact Us form opens the visitor's email application through `mailto:`.
+- Contact Us form submits through FormSubmit.
+- Gmail receives the FormSubmit contact email.
+- FormSubmit redirects to `thank-you.html` after a successful submission.
 - Mobile layout is readable and has no obvious horizontal overflow.
 
 ## Future Update Process
@@ -916,8 +860,10 @@ Ctrl + F5
 - Keep all video paths relative, such as `videos/Welcome_video_01_under8mb.mp4`.
 - Keep live images compressed where practical. The current referenced images were compressed to about `100KB` or less each.
 - Keep using the compressed homepage video unless a higher-quality video is intentionally needed.
+- Keep the Contact Us form action pointed at `https://formsubmit.co/aaron.zhang.aus@gmail.com` unless switching to a custom backend.
+- After the Namecheap domain is live, update the FormSubmit `_next` redirect from the GitHub Pages URL to the final domain.
 - Do not commit credentials, API keys, Namecheap login details, or GitHub tokens.
-- If backend email sending is added later, GitHub Pages alone will not be enough; use serverless/API hosting for the backend endpoint.
+- If replacing FormSubmit with custom backend email sending later, GitHub Pages alone will not be enough; use serverless/API hosting for the backend endpoint.
 
 ## Pre-Publish Checklist
 
@@ -931,4 +877,5 @@ Before publishing changes:
 - Check Our Cars slider arrows.
 - Check Our Cars image lightbox.
 - Check Contact Us form behavior.
-- Confirm whether the form should use `mailto:` or a backend endpoint.
+- Check that `thank-you.html` loads.
+- Confirm FormSubmit delivery to Gmail after the first live deploy or domain change.
