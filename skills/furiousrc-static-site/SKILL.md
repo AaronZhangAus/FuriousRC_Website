@@ -25,6 +25,8 @@ Use one HTML file per page. The current homepage file is `index.html`; shared st
 - Image assets live in `images/`.
 - Screenshot references live in `screenshots/`, grouped by page subfolder when provided.
 - Image names follow the pattern `Page_Section_Number.jpg` or page banner naming such as `Homepage-Welcome-banner.jpg`.
+- Live-page images were compressed in place for deployment performance. Keep newly added website images close to or under `100KB` where practical, accepting slight quality reduction when needed.
+- The homepage video has optimized variants in `videos/`; use the compressed under-8MB variant for the live homepage unless the user asks for a higher-quality file.
 - Existing important assets:
   - `images/FuriousRCLogo.jpg`
   - `images/Homepage-Welcome-banner.jpg`
@@ -61,17 +63,20 @@ Homepage implementation details:
 
 - Header is positioned over the hero video and currently uses a solid dark grey background to cover a logo area in the top-right of the video.
 - Homepage header-specific styling currently uses a taller `92px` header, `72px` logo, and larger homepage nav text; preserve this unless the user asks to change the homepage reference look.
-- Hero uses `videos/Welcome_video.mp4` with `autoplay`, `muted`, `loop`, and `playsinline`.
+- Hero uses `videos/Welcome_video_01_under8mb.mp4` with `autoplay`, `muted`, `loop`, and `playsinline`.
+- Video history:
+  - `videos/Welcome_video.mp4` is the original 59.8-second source, about 15.5MB.
+  - `videos/Welcome_video_01.mp4` is the first 40-second trimmed version, about 11.6MB.
+  - `videos/Welcome_video_01_under8mb.mp4` is the live compressed 40-second H.264 version, 1280x720, about 6.4MB.
 - `images/Homepage-Welcome-banner.jpg` is retained as the video poster/fallback image.
 - Homepage hero media uses top-centered cover framing; keep `.hero-copy` layered above it with `z-index` so the punch line and subline remain visible.
 - Section content uses a two-column layout: large heading left, body copy and Learn More button right.
 - Section images are wide below their text blocks.
-- School Incursions currently has two wide images: `Homepage_SchoolIncursion_01.jpg` followed by `Homepage_SchoolIncursion_02.jpg`.
-- In the School Incursions copy, the phrase `ready-to-race RC cars` links to `our-cars.html`.
+- School Incursions currently has three wide images: `Homepage_SchoolIncursion_01.jpg`, `Homepage_SchoolIncursion_02.jpg`, and `Homepage_SchoolIncursion_03.jpg`.
 - Footer background is dark grey.
 - Footer social icons are currently inline SVG placeholders because no separate Facebook/Instagram image assets were provided.
 - Homepage Learn More routing:
-  - School Incursions links to `packages.html#beginner-racer-training-camp`.
+  - School Incursions links to `packages.html#furious-rc-soccer-game`.
   - Council Events/Festivals links to `packages.html#mega-race`.
   - Birthday Party links to `packages.html#mega-race`.
 
@@ -79,15 +84,12 @@ Homepage implementation details:
 
 Packages page file: `packages.html`.
 
-Current package draft file: `packages_new.html`.
-
 Packages sections:
 
 - Grey header with logo/nav and active `Packages` link.
 - Centered `PACKAGES` title.
 - Centered package welcome image using `images/Packages-Welcome-banner.jpg`.
-- `1 hour Furious RC Beginner Racer Training Camp` package details.
-- Draft replacement first package in `packages_new.html`: `Furious RC Bigfoot Truck Soccer Arena`.
+- `Furious RC Bigfoot RC Soccer Arena` package details.
 - `2 hour Furious RC Mega Race` package details.
 - Homepage footer reused at the bottom.
 
@@ -97,21 +99,21 @@ Packages implementation details:
 - The footer keeps Homepage styling, so Helvetica is scoped to `.packages-main`, not the whole page.
 - Package content is narrow and centered, matching the screenshots.
 - Booking buttons link to `contact-us.html`.
-- `packages_new.html` replaces the original first package with a 90-minute school STEM incursion called `Furious RC Bigfoot Truck Soccer Arena`.
-- The Bigfoot Truck Soccer Arena package introduces children to RC car driving through an RC basics crash course followed by a competitive 3 vs 3 RC soccer game.
-- Bigfoot Truck Soccer Arena package details currently include:
+- The live first package in `packages.html` is a 90-minute school STEM incursion called `Furious RC Bigfoot RC Soccer Arena`.
+- The Bigfoot RC Soccer Arena package introduces children to RC car driving through an RC basics crash course followed by a competitive 3 vs 3 RC soccer game.
+- Bigfoot RC Soccer Arena package details currently include:
   - Duration: 90 minutes.
+  - Soccer Court Size: 8m x 5m fenced court.
   - Ideal Group Size: 6-15 students.
   - Recommended Age: 6-12 years old.
   - Staffing: 1 instructor/commentator + 1 assistant.
   - Pricing: $500.
-- Bigfoot Truck Soccer Arena `Program Format` should mention interactive RC training, anatomy of an electric RC car, basic control technique, driving etiquette, safety rules, 3 vs 3 soccer, match halves/breaks, music/commentary/scoring/timing, and regular battery changes.
-- Bigfoot Truck Soccer Arena `What We Provide` currently lists 6 beginner-friendly detailed Bigfoot monster trucks, an 8m x 5m fenced soccer court, 30 x 3000mAh 2S LiPo batteries, full-size soccer ball, scoreboard/timer, speaker/whistle, 2 soccer goals, setup table, and other event equipment.
-- `images/Packages_Soccer_Arena_01.jpg` is inserted after the third Bigfoot Truck Soccer Arena intro paragraph and before `Package Details`.
+- Bigfoot RC Soccer Arena `Program Format` should mention interactive RC training, anatomy of an electric RC car, basic control technique, driving etiquette, safety rules, 3 vs 3 soccer, match halves/breaks, music/commentary/scoring/timing, and regular battery changes.
+- Bigfoot RC Soccer Arena `What We Provide` currently lists 6 beginner-friendly detailed Bigfoot monster trucks, an 8m x 5m fenced soccer court, 30 x 3000mAh 2S LiPo batteries, full-size soccer ball, scoreboard/timer, speaker/whistle, 2 soccer goals, setup table, and other event equipment.
+- `images/Packages_Soccer_Arena_01.jpg`, `images/Packages_Soccer_Arena_02.jpg`, and `images/Packages_Soccer_Arena_03.jpg` are inserted before the Bigfoot RC Soccer Arena booking button.
 - `.package-section-image` in `styles.css` makes inserted package body images responsive inside the narrow package content column.
 - Bookmark IDs:
-  - Beginner Racer Training Camp section: `id="beginner-racer-training-camp"`.
-  - Draft Bigfoot Truck Soccer Arena section in `packages_new.html`: `id="furious-rc-soccer-game"`.
+  - Bigfoot RC Soccer Arena section: `id="furious-rc-soccer-game"`.
   - Mega Race section: `id="mega-race"`.
 - `.package-detail` uses `scroll-margin-top` so anchored jumps land cleanly.
 
@@ -126,7 +128,7 @@ Our Cars sections:
 - Centered welcome image using `images/Ourcars-Welcome-banner.jpg`.
 - Car sections for:
   - `MJX 10303/10304 1/10 Rally Car`
-  - `MJX 14209 Dessert Truck`
+  - `MJX 14209 Desert Truck`
   - `Arrma Fury 223S Short Course Truck`
 - Homepage footer reused at the bottom.
 
@@ -198,6 +200,11 @@ Contact Us implementation details:
 - README documents page structure, local preview, image conventions, slider updates, YouTube video slide setup, homepage video hero behavior, contact form behavior, backend email requirements, server transfer/upload steps, and pre-publish checks.
 - The README server transfer section should distinguish public upload files (`*.html`, `styles.css`, `images/`, `videos/`) from local-only materials (`.idea/`, `venv/`, `screenshots/`, `skills/`, `main.py`, `pyproject.toml`).
 - The one-time complicated YouTube lightbox support is already implemented; future README/user guidance should focus on the simple three-step video insertion process.
+- Latest performance work:
+  - Homepage now points to `videos/Welcome_video_01_under8mb.mp4`.
+  - Live-page images referenced by `index.html`, `packages.html`, `our-cars.html`, and `contact-us.html` were compressed in place to about `100KB` or less each.
+  - Keep `Packages_old.html`, `.idea/`, `venv/`, `screenshots/`, and `skills/` off the public server.
+  - Unused large files such as `images/boxofSCRAPS.jpg` and unreferenced car photos should not be uploaded unless explicitly needed.
 
 ## Current Link Targets
 

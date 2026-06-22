@@ -31,7 +31,9 @@ FuriousRC_Website/
 |-- styles.css
 |-- README.md
 |-- videos/
-|   `-- Welcome_video.mp4
+|   |-- Welcome_video.mp4
+|   |-- Welcome_video_01.mp4
+|   `-- Welcome_video_01_under8mb.mp4
 |-- images/
 |   |-- boxofSCRAPS.jpg
 |   |-- Contactus-Welcome-banner.jpg
@@ -105,13 +107,13 @@ Main sections:
 
 Important links:
 
-- School Incursions `Learn More` links to `packages.html#beginner-racer-training-camp`
+- School Incursions `Learn More` links to `packages.html#furious-rc-soccer-game`
 - Council Events/Festivals `Learn More` links to `packages.html#mega-race`
 - Birthday Party `Learn More` links to `packages.html#mega-race`
 
 Homepage video:
 
-- The homepage hero uses `videos/Welcome_video.mp4`.
+- The homepage hero uses `videos/Welcome_video_01_under8mb.mp4`.
 - The video autoplays, loops, stays muted, and plays inline on mobile.
 - `images/Homepage-Welcome-banner.jpg` is used as the poster/fallback image.
 - The homepage header uses a solid dark grey background to cover a logo area in the top-right of the video.
@@ -124,14 +126,14 @@ Main sections:
 
 - Header
 - Packages welcome image
-- Beginner Racer Training Camp package
+- Bigfoot RC Soccer Arena package
 - Mega Race package
 - Shared footer
 
 Bookmark sections:
 
 ```html
-id="beginner-racer-training-camp"
+id="furious-rc-soccer-game"
 id="mega-race"
 ```
 
@@ -601,29 +603,15 @@ Simple redirect example:
 
 ## Deployment Notes
 
-This site can be hosted as static files on:
+The preferred deployment path is GitHub Pages for hosting and Namecheap for DNS/domain registration.
 
-- Netlify
-- Vercel
-- GitHub Pages
-- Cloudflare Pages
-- Standard web hosting with Apache or Nginx
+Current repository:
 
-If backend email support is required, choose a host that supports:
+```text
+https://github.com/AaronZhangAus/FuriousRC_Website
+```
 
-- Serverless functions
-- API routes
-- Traditional backend hosting
-
-Static-only hosting is enough for the pages and sliders, but not enough for silent email sending.
-
-## Transferring The Website To A Server
-
-Upload only the public website files and folders needed by the browser. Do not upload local development folders such as `.idea/`, `venv/`, `screenshots/`, or `skills/`.
-
-### Files And Folders To Upload
-
-Upload these files and folders to the server's public website root folder, usually named `public_html`, `www`, `htdocs`, or the root folder provided by the hosting company:
+Recommended live source files:
 
 ```text
 index.html
@@ -635,75 +623,7 @@ images/
 videos/
 ```
 
-Upload the full `images/` folder, including:
-
-```text
-images/
-|-- boxofSCRAPS.jpg
-|-- Contactus-Welcome-banner.jpg
-|-- FuriousRCLogo.jpg
-|-- Homepage-Welcome-banner.jpg
-|-- Homepage_BirthdayParty_01.jpg
-|-- Homepage_BirthdayParty_02.jpg
-|-- Homepage_CouncilEvent_01.jpg
-|-- Homepage_CouncilEvent_02.jpg
-|-- Homepage_SchoolIncursion_01.jpg
-|-- Homepage_SchoolIncursion_02.jpg
-|-- Homepage_SchoolIncursion_03.jpg
-|-- Ourcars-Welcome-banner.jpg
-|-- Packages-Welcome-banner.jpg
-`-- OurCars/
-    |-- ArrmaFury223S/
-    |   |-- 0.jpg
-    |   |-- 1.jpg
-    |   |-- 2.jpg
-    |   |-- 3.jpg
-    |   |-- 4.jpg
-    |   |-- 5.jpg
-    |   |-- 6.jpg
-    |   |-- 7.jpg
-    |   `-- video_thumbnails/
-    |       `-- 1.jpg
-    |-- MJX10303_10304/
-    |   |-- 0.jpg
-    |   |-- 1.jpg
-    |   |-- 2.jpg
-    |   |-- 3.jpg
-    |   |-- 4.jpg
-    |   |-- 5.jpg
-    |   `-- video_thumbnails/
-    |       |-- 1.jpg
-    |       |-- 2.jpg
-    |       `-- 3.jpg
-    `-- MJX14209/
-        |-- 1.jpg
-        |-- 2.jpg
-        |-- 3.jpg
-        |-- 4.jpg
-        |-- 5.jpg
-        `-- video_thumbnail/
-            |-- 1.jpg
-            `-- 2.jpg
-```
-
-Upload the full `videos/` folder, including:
-
-```text
-videos/
-`-- Welcome_video.mp4
-```
-
-Optional:
-
-```text
-README.md
-```
-
-`README.md` is documentation only. The live website does not need it to run.
-
-### Do Not Upload
-
-These are local project/development materials and should normally stay off the public server:
+Local-only or unnecessary files should not be published intentionally:
 
 ```text
 .idea/
@@ -711,95 +631,293 @@ venv/
 screenshots/
 skills/
 pyproject.toml
+Packages_old.html
 README.md
 ```
 
-`README.md` appears in both lists because it is optional. Upload it only if you want documentation available on the server.
+Important: GitHub Pages serves files from the selected branch/folder. Anything committed inside the publishing source can be publicly accessible by URL, even if no page links to it.
 
-### Step-By-Step Upload Process
+Static-only GitHub Pages hosting is enough for this website's pages, images, homepage video, Our Cars sliders, and YouTube lightbox. It is not enough for silent backend email sending. The current Contact Us form uses `mailto:`, so no backend is required.
 
-1. Choose a static hosting provider. Simple options include Netlify, Vercel, Cloudflare Pages, GitHub Pages, or standard cPanel web hosting.
-2. If using standard web hosting, open your hosting control panel, FTP client, or SFTP client.
-3. Find the public website folder. It is usually named:
+Official references:
 
-```text
-public_html/
-www/
-htdocs/
+- GitHub Pages site setup: `https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site`
+- GitHub Pages custom domains and DNS records: `https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site`
+- Namecheap DNS management: `https://www.namecheap.com/support/knowledgebase/`
+
+## Publishing With GitHub Pages
+
+Use this process after making future website changes.
+
+1. Confirm the homepage still points to the compressed hero video:
+
+```html
+<source src="videos/Welcome_video_01_under8mb.mp4" type="video/mp4">
 ```
 
-4. Upload these files directly into that public folder:
+2. Confirm `index.html` is in the repository root. GitHub Pages needs this file as the homepage.
 
-```text
-index.html
-packages.html
-our-cars.html
-contact-us.html
-styles.css
+3. Commit and push changes to `master`:
+
+```powershell
+git status
+git add index.html packages.html our-cars.html contact-us.html styles.css images videos
+git commit -m "Update website"
+git push origin master
 ```
 
-5. Upload the entire `images/` folder into the same public folder.
-6. Upload the entire `videos/` folder into the same public folder.
-7. Confirm the server structure looks like this:
+4. In GitHub, open the repository:
 
 ```text
-public_html/
-|-- index.html
-|-- packages.html
-|-- our-cars.html
-|-- contact-us.html
-|-- styles.css
-|-- images/
-`-- videos/
+AaronZhangAus/FuriousRC_Website
 ```
 
-8. Make sure `index.html` is in the root public folder, not inside another folder. This is what makes the homepage load at your domain.
-9. If your FTP/SFTP client asks whether to overwrite existing files, choose overwrite for files you intentionally updated.
-10. Open the live website in a browser:
+5. Go to:
+
+```text
+Settings -> Pages
+```
+
+6. Under `Build and deployment`, choose:
+
+```text
+Source: Deploy from a branch
+Branch: master
+Folder: / (root)
+```
+
+7. Click `Save`.
+
+8. Wait for GitHub Pages to build and publish the site. The first publish can take a few minutes.
+
+9. Open the default GitHub Pages URL:
+
+```text
+https://AaronZhangAus.github.io/FuriousRC_Website/
+```
+
+10. Test these pages before connecting the custom domain:
+
+```text
+https://AaronZhangAus.github.io/FuriousRC_Website/
+https://AaronZhangAus.github.io/FuriousRC_Website/packages.html
+https://AaronZhangAus.github.io/FuriousRC_Website/our-cars.html
+https://AaronZhangAus.github.io/FuriousRC_Website/contact-us.html
+```
+
+11. Test the homepage video, homepage images, package images, Our Cars sliders, Our Cars lightbox, YouTube popups, and Contact Us form behavior.
+
+## Connecting A Namecheap Domain
+
+Use these steps when the domain is registered at Namecheap and GitHub Pages is already publishing correctly.
+
+Replace `your-domain.com` with the real domain, for example `furiousrc.com.au` if that is the final domain.
+
+### Step 1: Add The Custom Domain In GitHub
+
+1. In GitHub, open:
+
+```text
+Settings -> Pages
+```
+
+2. Under `Custom domain`, enter the domain you want visitors to use.
+
+Recommended option:
+
+```text
+www.your-domain.com
+```
+
+Using `www` as the primary domain is usually the simplest GitHub Pages setup. GitHub can redirect between the apex domain and `www` when both DNS records are configured correctly.
+
+3. Click `Save`.
+
+4. If GitHub creates or updates a `CNAME` file in the repository, pull that change locally before the next edit:
+
+```powershell
+git pull origin master
+```
+
+The `CNAME` file should contain only the custom domain, for example:
+
+```text
+www.your-domain.com
+```
+
+### Step 2: Configure Namecheap DNS
+
+1. Log in to Namecheap.
+2. Open `Domain List`.
+3. Click `Manage` next to the domain.
+4. Open the `Advanced DNS` tab.
+5. Remove or replace conflicting parking, redirect, or old website records for `@` and `www`.
+6. Add these `A Record` entries for the apex domain:
+
+```text
+Type: A Record
+Host: @
+Value: 185.199.108.153
+TTL: Automatic
+
+Type: A Record
+Host: @
+Value: 185.199.109.153
+TTL: Automatic
+
+Type: A Record
+Host: @
+Value: 185.199.110.153
+TTL: Automatic
+
+Type: A Record
+Host: @
+Value: 185.199.111.153
+TTL: Automatic
+```
+
+7. Add this `CNAME Record` for `www`:
+
+```text
+Type: CNAME Record
+Host: www
+Value: AaronZhangAus.github.io
+TTL: Automatic
+```
+
+Do not include the repository name in the `www` CNAME value. Use `AaronZhangAus.github.io`, not `AaronZhangAus.github.io/FuriousRC_Website`.
+
+8. Optional IPv6 records can be added later if needed. GitHub Pages supports these `AAAA` values:
+
+```text
+2606:50c0:8000::153
+2606:50c0:8001::153
+2606:50c0:8002::153
+2606:50c0:8003::153
+```
+
+9. Do not add wildcard DNS records such as `*.your-domain.com`.
+
+### Step 3: Wait And Verify DNS
+
+DNS changes can take minutes, but allow up to 24 hours.
+
+From PowerShell, check the apex domain:
+
+```powershell
+Resolve-DnsName your-domain.com -Type A
+```
+
+Expected values:
+
+```text
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+
+Check the `www` domain:
+
+```powershell
+Resolve-DnsName www.your-domain.com -Type CNAME
+```
+
+Expected value:
+
+```text
+AaronZhangAus.github.io
+```
+
+### Step 4: Enable HTTPS
+
+1. Go back to GitHub:
+
+```text
+Settings -> Pages
+```
+
+2. Wait until GitHub shows the custom domain as configured.
+3. Enable `Enforce HTTPS`.
+
+GitHub may take up to 24 hours before the HTTPS checkbox becomes available after DNS changes.
+
+### Step 5: Final Live-Site Checks
+
+Open:
+
+```text
+https://www.your-domain.com/
+https://www.your-domain.com/packages.html
+https://www.your-domain.com/our-cars.html
+https://www.your-domain.com/contact-us.html
+```
+
+Also test the apex domain:
 
 ```text
 https://your-domain.com/
 ```
 
-11. Test these pages:
+Confirm that one domain redirects cleanly to the other and that HTTPS is active.
 
-```text
-https://your-domain.com/index.html
-https://your-domain.com/packages.html
-https://your-domain.com/our-cars.html
-https://your-domain.com/contact-us.html
+Test:
+
+- Homepage video loads and plays.
+- `styles.css` loads.
+- All page navigation links work.
+- Homepage `Learn More` links jump to the correct package sections.
+- Our Cars slider arrows work.
+- Our Cars image lightbox opens and closes.
+- Our Cars YouTube popups open and stop playback after closing.
+- Contact Us form opens the visitor's email application through `mailto:`.
+- Mobile layout is readable and has no obvious horizontal overflow.
+
+## Future Update Process
+
+For normal content/image changes after GitHub Pages is connected:
+
+1. Edit the local files.
+2. Test locally:
+
+```powershell
+python -m http.server 8000
 ```
 
-12. Test the important assets:
+3. Open:
 
-- Homepage video
-- Homepage images
-- Package banner
-- Our Cars welcome banner
-- Contact Us banner
-- Our Cars photo sliders
-- Our Cars image lightbox
-- Our Cars YouTube popups
-- Contact form behavior
+```text
+http://localhost:8000/
+```
 
-13. Hard refresh the browser if old styling still appears:
+4. Commit and push:
+
+```powershell
+git status
+git add .
+git commit -m "Update website content"
+git push origin master
+```
+
+5. Wait for GitHub Pages to redeploy.
+6. Hard refresh the live site if old styling or images are cached:
 
 ```text
 Ctrl + F5
 ```
 
-14. If an image, video, or stylesheet is missing, verify that the filename and capitalization on the server exactly match the filename used in the HTML.
-15. Test the site on desktop and mobile after upload.
+7. If an image, video, or stylesheet is missing on the live site, verify filename capitalization. GitHub Pages paths are case-sensitive.
 
-### Important Server Notes
+## Important Publishing Notes
 
-- The homepage must be named `index.html` so the domain opens the homepage automatically.
-- Keep `styles.css` next to the `.html` files because each page links to `styles.css`.
+- The homepage must stay named `index.html`.
+- Keep `styles.css` next to the `.html` files.
 - Keep all image paths relative, such as `images/FuriousRCLogo.jpg`.
-- Keep all video paths relative, such as `videos/Welcome_video.mp4`.
-- Server filenames can be case-sensitive. `images/OurCars/MJX14209/1.jpg` is different from `images/ourcars/mjx14209/1.jpg` on many servers.
-- If the Contact Us form still uses `mailto:`, no backend upload is required.
-- If silent email sending is added later, the backend/API files must be deployed according to that backend host's instructions.
+- Keep all video paths relative, such as `videos/Welcome_video_01_under8mb.mp4`.
+- Keep live images compressed where practical. The current referenced images were compressed to about `100KB` or less each.
+- Keep using the compressed homepage video unless a higher-quality video is intentionally needed.
+- Do not commit credentials, API keys, Namecheap login details, or GitHub tokens.
+- If backend email sending is added later, GitHub Pages alone will not be enough; use serverless/API hosting for the backend endpoint.
 
 ## Pre-Publish Checklist
 
